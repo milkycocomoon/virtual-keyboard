@@ -47,8 +47,8 @@ const keys = {
             "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "Backspace",
             "Tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "\\",
             "Caps Lock", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "Enter",
-            "Shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "?", "↑", "LShift",
-            "Ctrl", "Win", "Alt", "Space", "LAlt", "LCtrl", "←", "↓", "→",
+            "Shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "?", "↑", "RShift",
+            "Ctrl", "Win", "Alt", "Space", "RAlt", "RCtrl", "←", "↓", "→",
         ];
 
         keyLayout.forEach(key => {
@@ -61,6 +61,7 @@ const keys = {
             switch(key) {
                 case 'Tab':
                     keyElement.classList.add('keyboard__key--dark');
+                    keyElement.setAttribute('code', 'Tab');
                     keyElement.innerText = 'Tab';
                     keyElement.addEventListener('click', () => {
                         this.properties.value += '  ';
@@ -70,15 +71,23 @@ const keys = {
 
                 case 'Caps Lock':
                     keyElement.classList.add('keyboard__key--wide', 'keyboard__key--dark');
+                    keyElement.setAttribute('code', 'CapsLock');
                     keyElement.innerText = 'Caps Lock';
                     keyElement.addEventListener('click', () => {
                         this.toggleCapsLock();
                         keyElement.classList.toggle('keyboard__key--active', this.properties.capsLock);
                     })
+                    window.addEventListener('keydown', (e) => {
+                        if (e.code === keyElement.getAttribute('code', 'CapsLock')){
+                            this.toggleCapsLock();
+                            keyElement.classList.toggle('keyboard__key--active', this.properties.capsLock);
+                        }
+                    })
                     break;
 
                 case 'Shift':
                     keyElement.classList.add('keyboard__key--wide', 'keyboard__key--dark');
+                    keyElement.setAttribute('code', 'ShiftLeft');
                     keyElement.innerText = 'Shift';
                     keyElement.addEventListener('mousedown', () => {
                         this.toggleCapsLock();
@@ -88,50 +97,101 @@ const keys = {
                         this.toggleCapsLock();
                         keyElement.classList.toggle(this.properties.capsLock);
                     })
+                    window.addEventListener('keydown', (e) => {
+                        if (e.code === keyElement.getAttribute('code', 'ShiftLeft')){
+                            this.toggleCapsLock();
+                            keyElement.classList.toggle(this.properties.capsLock);
+                            keyElement.classList.remove('keyboard__key--active');
+                        }
+                    });
+                    window.addEventListener('keyup', (e) => {
+                        if (e.code === keyElement.getAttribute('code', 'ShiftLeft')){
+                            this.toggleCapsLock();
+                            keyElement.classList.toggle(this.properties.capsLock);
+                            keyElement.classList.add('keyboard__key--active');
+                        }
+                    });
                     break;
-                case 'LShift':
+                case 'RShift':
                     keyElement.classList.add('keyboard__key--dark');
+                    keyElement.setAttribute('code', 'ShiftRight');
                     keyElement.innerText = 'Shift';
-                    keyElement.addEventListener('click', () => {
+                    keyElement.addEventListener('mousedown', () => {
                         this.toggleCapsLock();
                         keyElement.classList.toggle(this.properties.capsLock);
-                    })
+                    });
+                    keyElement.addEventListener('mouseup', () => {
+                        this.toggleCapsLock();
+                        keyElement.classList.toggle(this.properties.capsLock);
+                    });
+                    window.addEventListener('keydown', (e) => {
+                        if (e.code === keyElement.getAttribute('code', 'ShiftRight')){
+                            this.toggleCapsLock();
+                            keyElement.classList.toggle(this.properties.capsLock);
+                            keyElement.classList.remove('keyboard__key--active');
+                        }
+                    });
+                    window.addEventListener('keyup', (e) => {
+                        if (e.code === keyElement.getAttribute('code', 'ShiftRight')){
+                            this.toggleCapsLock();
+                            keyElement.classList.toggle(this.properties.capsLock);
+                            keyElement.classList.add('keyboard__key--active');
+                        }
+                    });
                     break;
 
                 case 'Ctrl':
                     keyElement.classList.add('keyboard__key--wide', 'keyboard__key--dark');
+                    keyElement.setAttribute('code', 'ControlLeft');
                     keyElement.innerText = 'Ctrl';
                     break;
-                case 'LCtrl':
+                case 'RCtrl':
                     keyElement.classList.add('keyboard__key--dark');
+                    keyElement.setAttribute('code', 'ControlRight');
                     keyElement.innerText = 'Ctrl';
                     break;
 
                 case 'Alt':
                     keyElement.classList.add('keyboard__key--dark');
+                    keyElement.setAttribute('code', 'AltLeft');
                     keyElement.innerText = 'Alt';
                     break;
-                case 'LAlt':
+                case 'RAlt':
                     keyElement.classList.add('keyboard__key--dark');
+                    keyElement.setAttribute('code', 'AltRight');
                     keyElement.innerText = 'Alt';
                     break;
 
                 case 'Win':
                     keyElement.classList.add('keyboard__key--dark');
+                    keyElement.setAttribute('code', 'MetaLeft');
                     keyElement.innerText = 'Win';
                     break;
 
                 case 'Backspace':
                     keyElement.classList.add('keyboard__key--wide', 'keyboard__key--dark');
+                    keyElement.setAttribute('code', 'Backspace');
                     keyElement.innerText = 'Backspace';
                     keyElement.addEventListener('click', () => {
                         this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
                         textarea.value = this.properties.value;
-                    })
+                    });
+                    window.addEventListener('keydown', (e) => {
+                        if (e.code === keyElement.getAttribute('code', 'Backspace')){
+                            this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
+                            keyElement.classList.remove('keyboard__key--active');
+                        }
+                    });
+                    window.addEventListener('keyup', (e) => {
+                        if (e.code === keyElement.getAttribute('code', 'Backspace')){
+                            keyElement.classList.add('keyboard__key--active');
+                        }
+                    });
                     break;
 
                 case 'Enter':
                     keyElement.classList.add('keyboard__key--wide', 'keyboard__key--dark');
+                    keyElement.setAttribute('code', 'Enter');
                     keyElement.innerText = 'Enter';
                     keyElement.addEventListener('click', () => {
                         this.properties.value += '/n';
@@ -140,6 +200,7 @@ const keys = {
 
                 case 'Space':
                     keyElement.classList.add('keyboard__key--extra-wide');
+                    keyElement.setAttribute('code', 'Space');
                     keyElement.innerText = 'Space';
                     keyElement.addEventListener('click', () => {
                         this.properties.value += ' ';
@@ -149,39 +210,92 @@ const keys = {
 
                 case '↑':
                     keyElement.classList.add('keyboard__key--dark');
+                    keyElement.setAttribute('code', 'ArrowUp');
                     keyElement.innerText = '↑';
                     keyElement.addEventListener('click', () => {
                         this.properties.value += '↑';
                         textarea.value = this.properties.value;
-                    })
+                    });
+                    window.addEventListener('keydown', (e) => {
+                        if (e.code === keyElement.getAttribute('code', 'ArrowUp')){
+                            this.properties.value += '↑';
+                            textarea.value = this.properties.value;
+                            keyElement.classList.remove('keyboard__key--active');
+                        }
+                    });
+                    window.addEventListener('keyup', (e) => {
+                        if (e.code === keyElement.getAttribute('code', 'ArrowUp')){
+                            keyElement.classList.add('keyboard__key--active');
+                        }
+                    });
                     break;
                 case '←':
                     keyElement.classList.add('keyboard__key--dark');
+                    keyElement.setAttribute('code', 'ArrowLeft');
                     keyElement.innerText = '←';
                     keyElement.addEventListener('click', () => {
                         this.properties.value += '←';
                         textarea.value = this.properties.value;
-                    })
+                    });
+                    window.addEventListener('keydown', (e) => {
+                        if (e.code === keyElement.getAttribute('code', 'ArrowLeft')){
+                            this.properties.value += '←';
+                            textarea.value = this.properties.value;
+                            keyElement.classList.remove('keyboard__key--active');
+                        }
+                    });
+                    window.addEventListener('keyup', (e) => {
+                        if (e.code === keyElement.getAttribute('code', 'ArrowLeft')) {
+                            keyElement.classList.add('keyboard__key--active');
+                        }
+                    });
                     break;
                 case '↓':
                     keyElement.classList.add('keyboard__key--dark');
+                    keyElement.setAttribute('code', 'ArrowDown');
                     keyElement.innerText = '↓';
                     keyElement.addEventListener('click', () => {
                         this.properties.value += '↓';
                         textarea.value = this.properties.value;
-                    })
+                    });
+                    window.addEventListener('keydown', (e) => {
+                        if (e.code === keyElement.getAttribute('code', 'ArrowDown')){
+                            this.properties.value += '↓';
+                            textarea.value = this.properties.value;
+                            keyElement.classList.remove('keyboard__key--active');
+                        }
+                    });
+                    window.addEventListener('keyup', (e) => {
+                        if (e.code === keyElement.getAttribute('code', 'ArrowDown')){
+                            keyElement.classList.add('keyboard__key--active');
+                        }
+                    });
                     break;
                 case '→':
                     keyElement.classList.add('keyboard__key--dark');
+                    keyElement.setAttribute('code', 'ArrowRight');
                     keyElement.innerText = '→';
                     keyElement.addEventListener('click', () => {
                         this.properties.value += '→';
                         textarea.value = this.properties.value;
-                    })
+                    });
+                    window.addEventListener('keydown', (e) => {
+                        if (e.code === keyElement.getAttribute('code', 'ArrowRight')){
+                            this.properties.value += '→';
+                            textarea.value = this.properties.value;
+                            keyElement.classList.remove('keyboard__key--active');
+                        }
+                    });
+                    window.addEventListener('keyup', (e) => {
+                        if (e.code === keyElement.getAttribute('code', 'ArrowRight')){
+                            keyElement.classList.add('keyboard__key--active');
+                        }
+                    });
                     break;
 
                 default:
                     keyElement.textContent = key.toLowerCase();
+                    keyElement.setAttribute('key', `${key}`);
                     keyElement.addEventListener('click', () => {
                         this.properties.value += this.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
                         textarea.value = this.properties.value;
@@ -194,6 +308,45 @@ const keys = {
             if(lineBreak){
                 fragment.appendChild(document.createElement('br'));
             };
+
+            window.addEventListener('keydown', function(e) {
+                if(e.key === keyElement.getAttribute('key', `${key}`)){
+                    keyElement.classList.toggle('keyboard__key--active');
+                } else if (e.code === keyElement.getAttribute('code', 'Tab')){
+                    keyElement.classList.toggle('keyboard__key--active');
+                } else if (e.code === keyElement.getAttribute('code', 'ControlLeft')){
+                    keyElement.classList.toggle('keyboard__key--active');
+                } else if (e.code === keyElement.getAttribute('code', 'ControlRight')){
+                    keyElement.classList.toggle('keyboard__key--active');
+                } else if (e.code === keyElement.getAttribute('code', 'AltLeft')){
+                    keyElement.classList.toggle('keyboard__key--active');
+                } else if (e.code === keyElement.getAttribute('code', 'AtlRight')){
+                    keyElement.classList.toggle('keyboard__key--active');
+                } else if (e.code === keyElement.getAttribute('code', 'MetaLeft')){
+                    keyElement.classList.toggle('keyboard__key--active');
+                } else if (e.code === keyElement.getAttribute('code', 'Enter')){
+                    keyElement.classList.toggle('keyboard__key--active');
+                }
+            });
+            window.addEventListener('keyup', function(e) {
+                if(e.key === keyElement.getAttribute('key', `${key}`)){
+                    keyElement.classList.toggle('keyboard__key--active');
+                } else if (e.code === keyElement.getAttribute('code', 'Tab')){
+                    keyElement.classList.toggle('keyboard__key--active');
+                } else if (e.code === keyElement.getAttribute('code', 'ControlLeft')){
+                    keyElement.classList.toggle('keyboard__key--active');
+                } else if (e.code === keyElement.getAttribute('code', 'ControlRight')){
+                    keyElement.classList.toggle('keyboard__key--active');
+                } else if (e.code === keyElement.getAttribute('code', 'AltLeft')){
+                    keyElement.classList.toggle('keyboard__key--active');
+                } else if (e.code === keyElement.getAttribute('code', 'AtlRight')){
+                    keyElement.classList.toggle('keyboard__key--active');
+                } else if (e.code === keyElement.getAttribute('code', 'MetaLeft')){
+                    keyElement.classList.toggle('keyboard__key--active');
+                } else if (e.code === keyElement.getAttribute('code', 'Enter')){
+                    keyElement.classList.toggle('keyboard__key--active');
+                }
+            })
         })
 
         return fragment;
