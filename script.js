@@ -53,7 +53,7 @@ const keys = {
 
         keyLayout.forEach(key => {
             const keyElement = document.createElement('button');
-            const lineBreak = ["Backspace", "\\", "Enter", "LShift"].indexOf(key) !== -1;
+            const lineBreak = ["Backspace", "\\", "Enter", "RShift"].indexOf(key) !== -1;
 
             keyElement.setAttribute('type', 'button');
             keyElement.classList.add('keyboard__key');
