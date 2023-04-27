@@ -37,6 +37,8 @@ const keys = {
 
         this.elements.main.appendChild(this.elements.keyContainer);
         this.elements.keyContainer.appendChild(this.createKeys());
+
+        this.elements.keys = this.elements.keyContainer.querySelectorAll('.keyboard__key');
     },
 
     createKeys() {
@@ -78,7 +80,11 @@ const keys = {
                 case 'Shift':
                     keyElement.classList.add('keyboard__key--wide', 'keyboard__key--dark');
                     keyElement.innerText = 'Shift';
-                    keyElement.addEventListener('click', () => {
+                    keyElement.addEventListener('mousedown', () => {
+                        this.toggleCapsLock();
+                        keyElement.classList.toggle(this.properties.capsLock);
+                    });
+                    keyElement.addEventListener('mouseup', () => {
                         this.toggleCapsLock();
                         keyElement.classList.toggle(this.properties.capsLock);
                     })
@@ -194,7 +200,14 @@ const keys = {
     },
 
     toggleCapsLock() {
-        console.log('caps lock');
+        this.properties.capsLock = !this.properties.capsLock;
+        for (const key of this.elements.keys) {
+            if(key.classList.contains('keyboard__key--dark') || key.classList.contains('keyboard__key--extra-wide')){
+                key.textContent.toLowerCase();
+            } else {
+                key.textContent = this.properties.capsLock ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
+            }
+        }
     }
 }
 
