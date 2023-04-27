@@ -46,12 +46,6 @@ body {
   background-color: rgb(165, 165, 165);
 }
 
-.keyboard__key--active,
-.keyboard__key:active {
-  background-color: rgb(75, 75, 75);
-  color: white;
-}
-
 .keyboard__key--wide {
   width: 12%;
 }
@@ -63,4 +57,10 @@ body {
 
 .keyboard__key--dark {
   background-color: rgb(201, 201, 201);
+}
+
+.keyboard__key--active,
+.keyboard__key:active {
+  background-color: rgb(75, 75, 75);
+  color: white;
 }
