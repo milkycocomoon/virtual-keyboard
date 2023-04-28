@@ -195,7 +195,7 @@ const keys = {
                     keyElement.setAttribute('code', 'Enter');
                     keyElement.innerText = 'Enter';
                     keyElement.addEventListener('click', () => {
-                        this.properties.value += '/n';
+                        this.properties.value += `${'\n'}`;
                     })
                     break;
 
