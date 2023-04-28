@@ -28,7 +28,8 @@ const keys = {
 
     properties: {
         value: '',
-        capsLock: false
+        capsLock: false,
+        shift: false
     },
 
     init() {
@@ -90,24 +91,24 @@ const keys = {
                     keyElement.setAttribute('code', 'ShiftLeft');
                     keyElement.innerText = 'Shift';
                     keyElement.addEventListener('mousedown', () => {
-                        this.toggleCapsLock();
-                        keyElement.classList.toggle(this.properties.capsLock);
+                        this.toggleShift();
+                        keyElement.classList.toggle(this.properties.shift);
                     });
                     keyElement.addEventListener('mouseup', () => {
-                        this.toggleCapsLock();
-                        keyElement.classList.toggle(this.properties.capsLock);
+                        this.toggleShift();
+                        keyElement.classList.toggle(this.properties.shift);
                     })
                     window.addEventListener('keydown', (e) => {
                         if (e.code === keyElement.getAttribute('code', 'ShiftLeft')){
-                            this.toggleCapsLock();
-                            keyElement.classList.toggle(this.properties.capsLock);
+                            this.toggleShift();
+                            keyElement.classList.toggle(this.properties.shift);
                             keyElement.classList.remove('keyboard__key--active');
                         }
                     });
                     window.addEventListener('keyup', (e) => {
                         if (e.code === keyElement.getAttribute('code', 'ShiftLeft')){
-                            this.toggleCapsLock();
-                            keyElement.classList.toggle(this.properties.capsLock);
+                            this.toggleShift();
+                            keyElement.classList.toggle(this.properties.shift);
                             keyElement.classList.add('keyboard__key--active');
                         }
                     });
@@ -117,24 +118,24 @@ const keys = {
                     keyElement.setAttribute('code', 'ShiftRight');
                     keyElement.innerText = 'Shift';
                     keyElement.addEventListener('mousedown', () => {
-                        this.toggleCapsLock();
-                        keyElement.classList.toggle(this.properties.capsLock);
+                        this.toggleShift();
+                        keyElement.classList.toggle(this.properties.shift);
                     });
                     keyElement.addEventListener('mouseup', () => {
-                        this.toggleCapsLock();
-                        keyElement.classList.toggle(this.properties.capsLock);
+                        this.toggleShift();
+                        keyElement.classList.toggle(this.properties.shift);
                     });
                     window.addEventListener('keydown', (e) => {
                         if (e.code === keyElement.getAttribute('code', 'ShiftRight')){
-                            this.toggleCapsLock();
-                            keyElement.classList.toggle(this.properties.capsLock);
+                            this.toggleShift();
+                            keyElement.classList.toggle(this.properties.shift);
                             keyElement.classList.remove('keyboard__key--active');
                         }
                     });
                     window.addEventListener('keyup', (e) => {
                         if (e.code === keyElement.getAttribute('code', 'ShiftRight')){
-                            this.toggleCapsLock();
-                            keyElement.classList.toggle(this.properties.capsLock);
+                            this.toggleShift();
+                            keyElement.classList.toggle(this.properties.shift);
                             keyElement.classList.add('keyboard__key--active');
                         }
                     });
@@ -361,7 +362,83 @@ const keys = {
                 key.textContent = this.properties.capsLock ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
             }
         }
+    },
+
+    toggleShift() {
+        this.properties.shift = !this.properties.shift;
+        for (let key of this.elements.keys) {
+            if (key = this.elements.keys[0]){
+                key.textContent = this.properties.shift ? key.textContent = '~' : key.textContent = '`';
+            }
+            if (key = this.elements.keys[1]){
+                key.textContent = this.properties.shift ? key.textContent = '!' : key.textContent = '1';
+            }
+            if (key = this.elements.keys[2]){
+                key.textContent = this.properties.shift ? key.textContent = '@' : key.textContent = '2';
+            }
+            if (key = this.elements.keys[3]){
+                key.textContent = this.properties.shift ? key.textContent = '#' : key.textContent = '3';
+            }
+            if (key = this.elements.keys[4]){
+                key.textContent = this.properties.shift ? key.textContent = '$' : key.textContent = '4';
+            }
+            if (key = this.elements.keys[5]){
+                key.textContent = this.properties.shift ? key.textContent = '%' : key.textContent = '5';
+            }
+            if (key = this.elements.keys[6]){
+                key.textContent = this.properties.shift ? key.textContent = '^' : key.textContent = '6';
+            }
+            if (key = this.elements.keys[7]){
+                key.textContent = this.properties.shift ? key.textContent = '&' : key.textContent = '7';
+            }
+            if (key = this.elements.keys[8]){
+                key.textContent = this.properties.shift ? key.textContent = '*' : key.textContent = '8';
+            }
+            if (key = this.elements.keys[9]){
+                key.textContent = this.properties.shift ? key.textContent = '(' : key.textContent = '9';
+            }
+            if (key = this.elements.keys[10]){
+                key.textContent = this.properties.shift ? key.textContent = ')' : key.textContent = '0';
+            }
+            if (key = this.elements.keys[11]){
+                key.textContent = this.properties.shift ? key.textContent = '_' : key.textContent = '-';
+            }
+            if (key = this.elements.keys[12]){
+                key.textContent = this.properties.shift ? key.textContent = '+' : key.textContent = '=';
+            }
+            if (key = this.elements.keys[25]){
+                key.textContent = this.properties.shift ? key.textContent = '{' : key.textContent = '[';
+            }
+            if (key = this.elements.keys[26]){
+                key.textContent = this.properties.shift ? key.textContent = '}' : key.textContent = ']';
+            }
+            if (key = this.elements.keys[27]){
+                key.textContent = this.properties.shift ? key.textContent = '|' : key.textContent = '\\';
+            }
+            if (key = this.elements.keys[38]){
+                key.textContent = this.properties.shift ? key.textContent = ':' : key.textContent = ';';
+            }
+            if (key = this.elements.keys[39]){
+                key.textContent = this.properties.shift ? key.textContent = '"' : key.textContent = '\'';
+            }
+            if (key = this.elements.keys[49]){
+                key.textContent = this.properties.shift ? key.textContent = '<' : key.textContent = ',';
+            }
+            if (key = this.elements.keys[50]){
+                key.textContent = this.properties.shift ? key.textContent = '>' : key.textContent = '.';
+            }
+            if (key = this.elements.keys[51]){
+                key.textContent = this.properties.shift ? key.textContent = '/' : key.textContent = '?';
+            }
+        }
+        for (const key of this.elements.keys) {
+            if (key.classList.contains('keyboard__key--dark') || key.classList.contains('keyboard__key--extra-wide')){
+                key.textContent.toLowerCase();
+            } else {
+                key.textContent = this.properties.shift ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
+            }
+        }
     }
-}
+};
 
 keys.init();
